@@ -8,18 +8,27 @@
     <artifactId>PlaywrightJavaDemo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
+        <java.version>1.8</java.version>
+
+        <playwright.version>1.17.0</playwright.version>
+
         <slf4j.version>1.7.32</slf4j.version>
         <logback.version>1.2.9</logback.version>
 
         <junit.version>4.13.2</junit.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <junit-vintage-engine.version>5.8.2</junit-vintage-engine.version>
+        <junit-jupiter-engine.version>5.8.2</junit-jupiter-engine.version>
         <junit-platform-suite.version>1.8.1</junit-platform-suite.version>
+
         <cucumber.version>7.1.0</cucumber.version>
         <cucumber-junit.version>7.1.0</cucumber-junit.version>
+        <cucumber-picocontainer.version>7.1.0</cucumber-picocontainer.version>
+        <reporting-plugin.version>7.1.1</reporting-plugin.version>
 
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
 
-        <java.version>17</java.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
 
@@ -31,7 +40,7 @@
         <dependency>
             <groupId>com.microsoft.playwright</groupId>
             <artifactId>playwright</artifactId>
-            <version>1.17.0</version>
+            <version>${playwright.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -43,24 +52,22 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit-jupiter.version}</version>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit-vintage-engine.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-suite</artifactId>
-            <version>${junit-platform-suite.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter-engine.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -84,60 +91,45 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
-            <version>7.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.masterthought</groupId>
-            <artifactId>cucumber-reporting</artifactId>
-            <version>5.6.0</version>
+            <version>${cucumber-picocontainer.version}</version>
         </dependency>
         <dependency>
             <groupId>me.jvt.cucumber</groupId>
             <artifactId>reporting-plugin</artifactId>
-            <version>7.0.0</version>
+            <version>${reporting-plugin.version}</version>
         </dependency>
     </dependencies>
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>net.masterthought</groupId>
-                    <artifactId>maven-cucumber-reporting</artifactId>
-                    <version>5.6.0</version>
-                    <executions>
-                        <execution>
-                            <id>execution</id>
-                            <phase>test</phase>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                            <configuration>
-                                <projectName>Playwright Java Demo</projectName>
-                                <outputDirectory>${project.build.directory}/Report/cucumber-reports</outputDirectory>
-                                <cucumberOutput>${project.build.directory}/cucumber/cucumber.json</cucumberOutput>
-                                <testFailureIgnore>true</testFailureIgnore>
-                            </configuration>
-                        </execution>
-                    </executions>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <skipTests>false</skipTests>
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
-<!--    <build>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-compiler-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <source>10</source>-->
-<!--                    <target>10</target>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
 </project>

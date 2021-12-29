@@ -1,7 +1,7 @@
 package com.demo.pages;
 
 import com.microsoft.playwright.Page;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
 
 public class LoginPage{
 
