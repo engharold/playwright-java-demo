@@ -1,29 +1,33 @@
 package com.demo.stepdefinitions;
 
+import com.demo.framework.FrameworkManager;
+import com.demo.pages.EmployeePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+
+import static org.junit.Assert.assertTrue;
 
 public class EmployeeSearchSteps {
 
+    EmployeePage employeePage;
 
-    @When("I select PIM > Employee List menu options")
-    public void iSelectPIMEmployeeListMenuOptions() {
-        System.out.println("Teste");
+    public EmployeeSearchSteps(FrameworkManager setup) {
+        employeePage = setup.getPageManager().getEmployeePage();
     }
 
-    @And("^fill employee name (.*)$")
-    public void fillEmployeeNameEmployeeName(String employeeName) {
-        System.out.println("Teste");
+    @And("^input (.*) in Employee Name search field$")
+    public void inputEmployeeNameInEmployeeNameSearchField(String employeeName) {
+        employeePage.inputEmployeeName(employeeName);
     }
 
     @And("click Search button")
-    public void clickButtonSearch() {
-        System.out.println("Teste");
+    public void clickSearchButton() {
+        employeePage.clickSearchButton();
     }
 
     @Then("^I see (.*) in the result list$")
     public void iSeeEmployeeNameInTheResultList(String employeeName) {
-        System.out.println("Teste");
+        String shownEmployeeName = employeePage.getEmployeeName();
+        assertTrue(shownEmployeeName.equalsIgnoreCase(employeeName));
     }
 }
