@@ -3,14 +3,18 @@ package com.demo.stepdefinitions;
 import com.demo.framework.FrameworkManager;
 import com.demo.pages.LoginPage;
 import io.cucumber.java.en.Given;
+import com.demo.pages.MainPage;
+import static org.junit.Assert.assertTrue;
 
 public class LoginSteps {
 
     LoginPage loginPage;
+    MainPage mainPage;
 
-    public LoginSteps(FrameworkManager setup) throws Exception {
+    public LoginSteps(FrameworkManager setup) {
         setup.createPageInstance();
-        loginPage = setup.getPageObjectManager().getLoginPage();
+        loginPage = setup.getPageManager().getLoginPage();
+        mainPage = setup.getPageManager().getMainPage();
     }
 
     @Given("I log in successfully to the application")
@@ -18,6 +22,6 @@ public class LoginSteps {
         loginPage.inputUserName("Admin");
         loginPage.inputPassword("admin123");
         loginPage.clickLoginButton();
-        loginPage.validateSuccessfulLogin();
+        assertTrue(mainPage.getWelcomeMessage().contains("Welcome"));
     }
 }

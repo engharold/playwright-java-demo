@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
         stepNotifications = true,
         features = "src/test/resources/features/",
         glue = {"com.demo.stepdefinitions"},
-        plugin = {"pretty","junit:target/junitreport.xml","json:target/jsonreport.json","html:target/cucumber-reports"},
+        plugin = {"pretty","html:target/Summarized-Cucumber-Report.html","me.jvt.cucumber.report.PrettyReports:target","json:target/cucumber.json"},
         monochrome = true
 )
 
