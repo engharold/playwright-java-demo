@@ -3,8 +3,6 @@ package com.demo.pages;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 
-import static org.junit.Assert.assertTrue;
-
 public class EmployeePage{
 
     Page page;
